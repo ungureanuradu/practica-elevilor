@@ -1,22 +1,34 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
-import Welcome from '@/Components/Welcome.vue';
+import { Head } from '@inertiajs/vue3'
+import Banner from '@/Components/Banner.vue'
+import Footer from '@/Components/Footer.vue'
+
+defineProps({
+  title: String,
+})
 </script>
 
 <template>
-    <AppLayout title="Dashboard">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
-            </h2>
-        </template>
+  <div>
+    <Head :title="title" />
+    <Banner />
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <Welcome />
-                </div>
-            </div>
+    <!-- IMPORTANT: flex + col ca să stea footerul jos -->
+    <div class="min-h-screen bg-gray-100 flex flex-col">
+      <!-- Header-ul paginii -->
+      <header v-if="$slots.header" class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <slot name="header" />
         </div>
-    </AppLayout>
+      </header>
+
+      <!-- Conținut -->
+      <main class="flex-1">
+        <slot />
+      </main>
+
+      <!-- Footer -->
+      <Footer :data="window.footerData" />
+    </div>
+  </div>
 </template>

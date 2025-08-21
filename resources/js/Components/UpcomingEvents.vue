@@ -17,7 +17,7 @@ onMounted(() => {
 
 <template>
   <section class="space-y-3">
-    <h3 class="text-lg font-semibold">Upcoming Events</h3>
+    <h3 class="text-lg font-semibold">Evenimente</h3>
     
     <ul class="divide-y">
       <li v-for="e in events" :key="e.id" class="py-2">
