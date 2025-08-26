@@ -3,87 +3,88 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 class MembersController extends Controller
 {
     /**
-     * GET /api/members - listă membri pentru API
+     * Display a listing of the members.
      */
     public function index(Request $request)
     {
         $query = User::query()->public();
 
-        // Filtrare pe rol
-        if ($request->has('role') && $request->role !== 'all') {
-            $query->where('role', $request->role);
-        }
-
-        // Search
-        if ($request->has('search') && !empty($request->search)) {
-            $searchTerm = $request->search;
-            $query->where(function($q) use ($searchTerm) {
-                $q->where('name', 'like', "%{$searchTerm}%")
-                  ->orWhere('bio', 'like', "%{$searchTerm}%")
-                  ->orWhere('school', 'like', "%{$searchTerm}%")
-                  ->orWhere('department', 'like', "%{$searchTerm}%")
-                  ->orWhere('company_name', 'like', "%{$searchTerm}%");
+        // Apply filters
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('bio', 'like', "%{$search}%")
+                  ->orWhere('school', 'like', "%{$search}%")
+                  ->orWhere('department', 'like', "%{$search}%")
+                  ->orWhere('company_name', 'like', "%{$search}%")
+                  ->orWhere('skills', 'like', "%{$search}%")
+                  ->orWhere('specializations', 'like', "%{$search}%");
             });
         }
 
-        // Sortare
-        $sortBy = $request->get('sort', 'name');
-        $sortOrder = $request->get('order', 'asc');
-        
-        if (in_array($sortBy, ['name', 'created_at', 'role'])) {
-            $query->orderBy($sortBy, $sortOrder);
-        } else {
-            $query->orderBy('name', 'asc');
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
         }
 
-        $members = $query->paginate(12);
-        
-        return UserResource::collection($members);
-    }
+        if ($request->filled('department')) {
+            $query->where('department', $request->department);
+        }
 
-    /**
-     * GET /members - pagina cu toți membrii
-     */
-    public function page(Request $request)
-    {
+        // Apply sorting
+        $sortBy = $request->get('sort_by', 'name');
+        $sortOrder = $request->get('sort_order', 'asc');
+        
+        switch ($sortBy) {
+            case 'name':
+                $query->orderBy('name', $sortOrder);
+                break;
+            case 'created_at':
+                $query->orderBy('created_at', $sortOrder);
+                break;
+            case 'role':
+                $query->orderBy('role', $sortOrder);
+                break;
+            default:
+                $query->orderBy('name', 'asc');
+        }
+
+        $members = $query->paginate(12)->withQueryString();
+
+        // Get statistics
+        $stats = [
+            'total' => User::public()->count(),
+            'students' => User::students()->public()->count(),
+            'teachers' => User::teachers()->public()->count(),
+            'companies' => User::companies()->public()->count(),
+        ];
+
         return Inertia::render('Members/Index', [
-            'filters' => [
-                'role' => $request->get('role', 'all'),
-                'search' => $request->get('search', ''),
-                'sort' => $request->get('sort', 'name'),
-                'order' => $request->get('order', 'asc'),
-            ],
-            'stats' => [
-                'total' => User::public()->count(),
-                'students' => User::students()->public()->count(),
-                'teachers' => User::teachers()->public()->count(),
-                'companies' => User::companies()->public()->count(),
-            ]
+            'members' => $members,
+            'stats' => $stats,
+            'filters' => $request->only(['search', 'role', 'department', 'sort_by', 'sort_order']),
         ]);
     }
 
     /**
-     * GET /members/{user} - profil individual
+     * Display the specified member.
      */
     public function show(User $user)
     {
-        // Verifică dacă profilul e public
+        // Check if profile is public
         if (!$user->is_public) {
             abort(404);
         }
 
         return Inertia::render('Members/Show', [
-            'member' => new UserResource($user),
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
+            'member' => $user,
         ]);
     }
 }

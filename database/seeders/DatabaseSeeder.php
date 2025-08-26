@@ -13,11 +13,42 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Create some test users
+        $teacher = User::firstOrCreate(
+            ['email' => 'profesor@example.com'],
+            [
+                'name' => 'Profesor Test',
+                'role' => 'teacher',
+                'department' => 'Informatică',
+                'title' => 'Profesor',
+                'specializations' => ['PHP', 'Laravel', 'Vue.js'],
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
+            ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $student = User::firstOrCreate(
+            ['email' => 'student@example.com'],
+            [
+                'name' => 'Student Test',
+                'role' => 'student',
+                'school' => 'Liceul Tehnologic „Vasile Sav"',
+                'year_of_study' => 'Clasa a XII-a',
+                'skills' => ['HTML', 'CSS', 'JavaScript'],
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
+            ]
+        );
+
+        // Call the seeders
+        $this->call([
+            CoursesSeeder::class,
+            NewsSeeder::class,
+            JobsSeeder::class,
+            ForumSeeder::class,
+            DocumentsSeeder::class,
+            GroupsSeeder::class,
+            CalendarSeeder::class,
         ]);
     }
 }

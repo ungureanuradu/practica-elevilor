@@ -12,17 +12,17 @@ const props = defineProps({
       {
         title: 'Cum îmi găsesc un angajator',
         note: 'Pași practici + resurse',
-        url: '/informatii/gasire-angajator'
+        url: '/information/finding-employer'
       },
       {
         title: 'Documente necesare la angajare',
         note: 'Checklist pentru elevi',
-        url: '/informatii/documente-angajare'
+        url: '/information/employment-documents'
       },
       {
         title: 'Ce înseamnă internship',
         note: 'Diferențe față de job/voluntariat',
-        url: '/informatii/internship'
+        url: '/information/internship-guide'
       },
     ]
   },
@@ -58,7 +58,7 @@ const props = defineProps({
     </ul>
 
     <div class="mt-3">
-      <a href="/informatii" class="text-blue-600 text-sm">
+      <a href="/information" class="text-blue-600 text-sm">
         Vezi toate ghidurile →
       </a>
     </div>
