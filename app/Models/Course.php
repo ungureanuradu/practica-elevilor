@@ -37,6 +37,13 @@ class Course extends Model
             }
         });
     }
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     // Relationships
     public function instructor(): BelongsTo

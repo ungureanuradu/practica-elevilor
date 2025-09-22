@@ -64,8 +64,8 @@ const statusLabels = {
           Cursuri
         </h2>
         <Link
-          v-if="$page.props.auth.user"
-          :href="route('courses.create')"
+          v-if="$page.props.auth.user && $page.props.auth.user.role === 'teacher'"
+          :href="route('teacher.courses.create')"
           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
         >
           + Creează curs

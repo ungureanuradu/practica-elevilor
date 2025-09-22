@@ -20,6 +20,9 @@ use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\GroupMembersController;
 use App\Http\Controllers\GroupTopicsController;
 use App\Http\Controllers\MembersController;
+use App\Http\Controllers\Student\StudentDashboardController;
+use App\Http\Controllers\Teacher\TeacherDashboardController;
+use App\Http\Controllers\Company\CompanyDashboardController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -36,14 +39,18 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        $user = auth()->user();
+        
+        return match($user->role) {
+            'student' => redirect()->route('student.dashboard'),
+            'teacher' => redirect()->route('teacher.dashboard'),
+            'company' => redirect()->route('company.dashboard'),
+            default => redirect()->route('student.dashboard') // fallback to student dashboard
+        };
     })->name('dashboard');
 });
 
 Route::get('/', fn () => Inertia::render('PublicHomePage'))->name('home');
-Route::get('/dashboard', fn () => Inertia::render('DashboardHome'))
-      ->middleware(['auth', 'verified'])
-      ->name('dashboard');
 
 // Legal pages
 Route::get('/terms', fn () => Inertia::render('TermsOfService'))->name('terms.show');
@@ -62,7 +69,7 @@ Route::get('/jobs/{job}', [JobsController::class, 'show'])->name('jobs.show');
 Route::middleware(['auth', 'verified'])->group(function () {
     // Teacher routes
     Route::prefix('teacher')->name('teacher.')->group(function () {
-        Route::get('/dashboard', fn () => Inertia::render('Teacher/Dashboard'))->name('dashboard');
+        Route::get('/dashboard', [TeacherDashboardController::class, 'index'])->name('dashboard');
         Route::get('/members', [MembersController::class, 'index'])->name('members.index');
         Route::get('/members/{user}', [MembersController::class, 'show'])->name('members.show');
         Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
@@ -101,7 +108,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Student routes
     Route::prefix('student')->name('student.')->group(function () {
-        Route::get('/dashboard', fn () => Inertia::render('Student/Dashboard'))->name('dashboard');
+        Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
         Route::get('/members', [MembersController::class, 'index'])->name('members.index');
         Route::get('/members/{user}', [MembersController::class, 'show'])->name('members.show');
         Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
@@ -129,7 +136,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Company routes
     Route::prefix('company')->name('company.')->group(function () {
-        Route::get('/dashboard', fn () => Inertia::render('Company/Dashboard'))->name('dashboard');
+        Route::get('/dashboard', [CompanyDashboardController::class, 'index'])->name('dashboard');
         Route::get('/members', [MembersController::class, 'index'])->name('members.index');
         Route::get('/members/{user}', [MembersController::class, 'show'])->name('members.show');
         Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');

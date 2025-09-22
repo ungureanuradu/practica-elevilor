@@ -61,7 +61,7 @@ const deleteCourse = () => {
         
         <div v-if="canEdit" class="flex items-center gap-2">
           <Link
-            :href="route('courses.edit', course.id)"
+            :href="route('teacher.courses.edit', course.id)"
             class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
           >
             Editează

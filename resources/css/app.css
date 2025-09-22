@@ -5,3 +5,35 @@
 [x-cloak] {
     display: none;
 }
+
+/* Common content styling for news, events, and other content pages */
+.content-styling p {
+    @apply mb-6 leading-relaxed text-lg;
+}
+
+.content-styling h2 {
+    @apply text-2xl font-bold text-gray-900 mt-10 mb-6;
+}
+
+.content-styling h3 {
+    @apply text-xl font-semibold text-gray-900 mt-8 mb-4;
+}
+
+.content-styling ul,
+.content-styling ol {
+    @apply mb-6 ml-6 text-lg;
+}
+
+.content-styling li {
+    @apply mb-3;
+}
+
+.content-styling blockquote {
+    @apply border-l-4 border-blue-500 pl-6 italic text-gray-700 my-6;
+}
+
+/* Full width content utility */
+.content-full-width {
+    width: 100% !important;
+    max-width: none !important;
+}

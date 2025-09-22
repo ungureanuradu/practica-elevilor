@@ -8,10 +8,13 @@ use App\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Inertia\Inertia;
 
 class CoursesController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of courses
      */
