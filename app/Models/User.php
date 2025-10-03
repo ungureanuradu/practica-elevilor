@@ -48,21 +48,6 @@ class User extends Authenticatable
     // Relații
     public function news() { return $this->hasMany(News::class); }
     public function events() { return $this->hasMany(Event::class); }
-    public function courses() { return $this->hasMany(Course::class, 'instructor_id'); }
-    public function jobPostings() { return $this->hasMany(Job::class, 'company_id'); }
-    public function jobApplications() { return $this->hasMany(JobApplication::class, 'applicant_id'); }
-    public function forumThreads() { return $this->hasMany(ForumThread::class, 'author_id'); }
-    public function forumPosts() { return $this->hasMany(ForumPost::class, 'author_id'); }
-    public function forumLikes() { return $this->hasMany(ForumLike::class); }
-    public function forumBookmarks() { return $this->hasMany(ForumBookmark::class); }
-    public function documents() { return $this->hasMany(Document::class, 'uploader_id'); }
-    public function documentVersions() { return $this->hasMany(DocumentVersion::class, 'uploader_id'); }
-    public function approvedDocuments() { return $this->hasMany(Document::class, 'approved_by_id'); }
-    public function ownedGroups() { return $this->hasMany(Group::class, 'owner_id'); }
-    public function moderatedGroups() { return $this->hasMany(Group::class, 'moderator_id'); }
-    public function groups() { return $this->belongsToMany(Group::class, 'group_members')->withPivot(['role', 'status', 'joined_at']); }
-    public function groupMemberships() { return $this->hasMany(GroupMember::class); }
-    public function organizedEvents() { return $this->hasMany(CalendarEvent::class, 'organizer_id'); }
 
     // Accessors
     public function getDisplayNameAttribute(): string

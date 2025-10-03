@@ -1,6 +1,5 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
-import AppLayout from '@/Layouts/AppLayout.vue'
 import Banner from '@/Components/Banner.vue'
 import Footer from '@/Components/Footer.vue'
 
@@ -10,24 +9,26 @@ defineProps({
 </script>
 
 <template>
-  <AppLayout :title="title">
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Dashboard
-      </h2>
-    </template>
+  <div>
+    <Head :title="title" />
+    <Banner />
 
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-          <div class="text-center">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Bun venit!</h3>
-            <p class="text-gray-600">
-              Aceasta este pagina principală a aplicației. Navighează prin meniul de sus pentru a accesa diferite secțiuni.
-            </p>
-          </div>
+    <!-- IMPORTANT: flex + col ca să stea footerul jos -->
+    <div class="min-h-screen bg-gray-100 flex flex-col">
+      <!-- Header-ul paginii -->
+      <header v-if="$slots.header" class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <slot name="header" />
         </div>
-      </div>
+      </header>
+
+      <!-- Conținut -->
+      <main class="flex-1">
+        <slot />
+      </main>
+
+      <!-- Footer -->
+      <Footer :data="window.footerData" />
     </div>
-  </AppLayout>
+  </div>
 </template>

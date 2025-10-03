@@ -13,7 +13,7 @@ const props = defineProps({
         {{ job.company }} • {{ job.location }}
       </p>
       <p class="text-sm text-gray-600 line-clamp-3 mb-4">{{ job.summary }}</p>
-      <a :href="`/jobs/${job.slug || job.id}`" class="text-blue-600 text-sm">Detalii →</a>
+      <a :href="`/joburi/${job.slug || job.id}`" class="text-blue-600 text-sm">Detalii →</a>
     </article>
   </div>
 </template>
