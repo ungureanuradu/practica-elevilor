@@ -1,11 +1,5 @@
 <template>
-    <AppLayout title="Forum">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Forum
-            </h2>
-        </template>
-
+    <FrontendLayout title="Forum">
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <!-- Forum Stats -->
@@ -189,17 +183,17 @@
                 </div>
             </div>
         </div>
-    </AppLayout>
+    </FrontendLayout>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 import { Link } from '@inertiajs/vue3'
-import AppLayout from '@/Layouts/AppLayout.vue'
+import FrontendLayout from '@/Layouts/FrontendLayout.vue'
 
 export default defineComponent({
     components: {
-        AppLayout,
+        FrontendLayout,
         Link,
     },
     props: {

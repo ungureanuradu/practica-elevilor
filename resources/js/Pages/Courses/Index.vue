@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { Link, router } from '@inertiajs/vue3'
 import { Head } from '@inertiajs/vue3'
-import AppLayout from '@/Layouts/AppLayout.vue'
+import FrontendLayout from '@/Layouts/FrontendLayout.vue'
 
 const props = defineProps({
   courses: Object,
@@ -57,7 +57,7 @@ const statusLabels = {
 <template>
   <Head title="Cursuri" />
 
-  <AppLayout>
+  <FrontendLayout>
     <template #header>
       <div class="flex items-center justify-between">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -338,5 +338,5 @@ const statusLabels = {
         </div>
       </div>
     </div>
-  </AppLayout>
+  </FrontendLayout>
 </template> 

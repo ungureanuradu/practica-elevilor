@@ -1,11 +1,5 @@
 <template>
-  <AppLayout title="Membri">
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Membri
-      </h2>
-    </template>
-
+  <FrontendLayout title="Membri">
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Header Section -->
@@ -91,7 +85,7 @@
                   Caută
                 </label>
                 <input
-                  v-model="filters.search"
+                  v-model="localFilters.search"
                   type="text"
                   placeholder="Caută membri..."
                   class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
@@ -104,7 +98,7 @@
                   Rol
                 </label>
                 <select
-                  v-model="filters.role"
+                  v-model="localFilters.role"
                   class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                 >
                   <option value="">Toate rolurile</option>
@@ -120,7 +114,7 @@
                   Departament
                 </label>
                 <select
-                  v-model="filters.department"
+                  v-model="localFilters.department"
                   class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                 >
                   <option value="">Toate departamentele</option>
@@ -142,7 +136,7 @@
                   Sortează
                 </label>
                 <select
-                  v-model="filters.sort_by"
+                  v-model="localFilters.sort"
                   class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                 >
                   <option value="name">Nume</option>
@@ -302,7 +296,7 @@
                   </button>
                   
                   <Link
-                    :href="route('profile.show', member.id)"
+                    :href="route('members.show', member.id)"
                     class="inline-flex items-center px-3 py-1.5 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                   >
                     Vezi Profilul
@@ -379,17 +373,17 @@
         </div>
       </div>
     </div>
-  </AppLayout>
+  </FrontendLayout>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 import { Link } from '@inertiajs/vue3'
-import AppLayout from '@/Layouts/AppLayout.vue'
+import FrontendLayout from '@/Layouts/FrontendLayout.vue'
 
 export default defineComponent({
   components: {
-    AppLayout,
+    FrontendLayout,
     Link,
   },
   props: {
@@ -399,7 +393,13 @@ export default defineComponent({
   },
   data() {
     return {
-      localFilters: { ...this.filters }
+      localFilters: { 
+        search: this.filters.search || '',
+        role: this.filters.role || '',
+        department: this.filters.department || '',
+        sort: this.filters.sort || 'name',
+        order: this.filters.order || 'asc'
+      }
     }
   },
   methods: {
@@ -420,8 +420,8 @@ export default defineComponent({
         search: '',
         role: '',
         department: '',
-        sort_by: 'name',
-        sort_order: 'asc'
+        sort: 'name',
+        order: 'asc'
       }
       this.applyFilters()
     },

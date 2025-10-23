@@ -57,13 +57,13 @@ Route::get('/terms', fn () => Inertia::render('TermsOfService'))->name('terms.sh
 Route::get('/policy', fn () => Inertia::render('PrivacyPolicy'))->name('policy.show');
 
 // Public routes (for non-authenticated users)
-Route::get('/members', [MembersController::class, 'index'])->name('members.index');
-Route::get('/members/{user}', [MembersController::class, 'show'])->name('members.show');
-Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
-Route::get('/courses/{course}', [CoursesController::class, 'show'])->name('courses.show');
+Route::get('/membri', [MembersController::class, 'index'])->name('members.index');
+Route::get('/membri/{user}', [MembersController::class, 'show'])->name('members.show');
+Route::get('/cursuri', [CoursesController::class, 'index'])->name('public.courses.index');
+Route::get('/cursuri/{course}', [CoursesController::class, 'show'])->name('public.courses.show');
 Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
-Route::get('/jobs', [JobsController::class, 'index'])->name('jobs.index');
-Route::get('/jobs/{job}', [JobsController::class, 'show'])->name('jobs.show');
+Route::get('/joburi', [JobsController::class, 'index'])->name('jobs.index');
+Route::get('/joburi/{job}', [JobsController::class, 'show'])->name('jobs.show');
 
 // Role-based routes for authenticated users
 Route::middleware(['auth', 'verified'])->group(function () {

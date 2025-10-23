@@ -25,6 +25,10 @@ const switchToTeam = (team) => {
 const logout = () => {
     router.post(route('logout'));
 };
+
+
+const footerData = typeof window !== 'undefined' ? window.footerData : null
+
 </script>
 
 <template>
@@ -285,7 +289,7 @@ const logout = () => {
                 <slot />
             </main>
             <!-- Footer -->
-      <Footer :data="window.footerData" />  <!-- ⬅️ montează aici -->
+        <Footer :data="footerData" /> <!-- ⬅️ montează aici -->
         </div>
     </div>
 </template>
