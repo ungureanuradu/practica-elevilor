@@ -148,7 +148,7 @@
                   Caută
                 </label>
                 <input
-                  v-model="filters.search"
+                  v-model="localFilters.search"
                   type="text"
                   placeholder="Caută evenimente..."
                   class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
@@ -161,7 +161,7 @@
                   Categorie
                 </label>
                 <select
-                  v-model="filters.category"
+                  v-model="localFilters.category"
                   class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                 >
                   <option value="">Toate categoriile</option>
@@ -181,7 +181,7 @@
                   Tip
                 </label>
                 <select
-                  v-model="filters.type"
+                  v-model="localFilters.type"
                   class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                 >
                   <option value="">Toate tipurile</option>
@@ -201,7 +201,7 @@
                   Perioada
                 </label>
                 <select
-                  v-model="filters.period"
+                  v-model="localFilters.period"
                   class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                 >
                   <option value="">Toate perioadele</option>
@@ -221,7 +221,7 @@
                   Sortează
                 </label>
                 <select
-                  v-model="filters.sort_by"
+                  v-model="localFilters.sort_by"
                   class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                 >
                   <option value="start_date">Data</option>

@@ -48,6 +48,8 @@ class User extends Authenticatable
     // Relații
     public function news() { return $this->hasMany(News::class); }
     public function events() { return $this->hasMany(Event::class); }
+    public function groups() { return $this->belongsToMany(Group::class, 'group_members'); }
+    public function jobApplications() { return $this->hasMany(JobApplication::class, 'applicant_id'); }
 
     // Accessors
     public function getDisplayNameAttribute(): string

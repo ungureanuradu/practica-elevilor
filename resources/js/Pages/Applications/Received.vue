@@ -15,7 +15,7 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
               <select
-                v-model="filters.status"
+                v-model="localFilters.status"
                 class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
               >
                 <option value="">Toate</option>
@@ -29,7 +29,7 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Job</label>
               <select
-                v-model="filters.job_id"
+                v-model="localFilters.job_id"
                 class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
               >
                 <option value="">Toate joburile</option>
@@ -41,7 +41,7 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Caută</label>
               <input
-                v-model="filters.search"
+                v-model="localFilters.search"
                 type="text"
                 placeholder="Nume candidat..."
                 class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"

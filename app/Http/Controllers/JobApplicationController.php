@@ -193,7 +193,9 @@ class JobApplicationController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('job-applications.my-applications', compact('applications'));
+        return Inertia::render('Applications/MyApplications', [
+            'applications' => $applications,
+        ]);
     }
 
     /**
