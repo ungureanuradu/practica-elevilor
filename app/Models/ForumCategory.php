@@ -24,6 +24,11 @@ class ForumCategory extends Model
         'last_activity_at' => 'datetime',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     protected static function boot()
     {
         parent::boot();

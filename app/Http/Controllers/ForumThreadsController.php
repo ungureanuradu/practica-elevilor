@@ -142,9 +142,10 @@ class ForumThreadsController extends Controller
     /**
      * Display the specified thread.
      */
-    public function show(ForumThread $thread): Response
+    public function show($id): Response
     {
         // Check access
+        $thread = ForumThread::findOrFail($id);
         if (!$thread->category->canBeAccessedBy(auth()->user())) {
             abort(403, 'Nu aveți acces la acest thread.');
         }

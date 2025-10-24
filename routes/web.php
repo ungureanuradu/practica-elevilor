@@ -187,7 +187,7 @@ Route::get('/forum/categories/{category}', [ForumController::class, 'category'])
 Route::get('/forum/threads', [ForumThreadsController::class, 'index'])->name('forum-threads.index');
 Route::get('/forum/threads/create', [ForumThreadsController::class, 'create'])->middleware(['auth', 'verified'])->name('forum-threads.create');
 Route::post('/forum/threads', [ForumThreadsController::class, 'store'])->middleware(['auth', 'verified'])->name('forum-threads.store');
-Route::get('/forum/threads/{thread}', [ForumThreadsController::class, 'show'])->name('forum-threads.show');
+Route::get('/forum/threads/{id}', [ForumThreadsController::class, 'show'])->name('forum-threads.show');
 Route::get('/forum/threads/{thread}/edit', [ForumThreadsController::class, 'edit'])->middleware(['auth', 'verified'])->name('forum-threads.edit');
 Route::put('/forum/threads/{thread}', [ForumThreadsController::class, 'update'])->middleware(['auth', 'verified'])->name('forum-threads.update');
 Route::delete('/forum/threads/{thread}', [ForumThreadsController::class, 'destroy'])->middleware(['auth', 'verified'])->name('forum-threads.destroy');

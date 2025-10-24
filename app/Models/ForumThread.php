@@ -28,6 +28,11 @@ class ForumThread extends Model
         'solved_at' => 'datetime',
     ];
 
+    // public function getRouteKeyName()
+    // {
+    //     return 'slug';
+    // }
+
     protected static function boot()
     {
         parent::boot();
