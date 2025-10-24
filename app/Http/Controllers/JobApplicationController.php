@@ -7,6 +7,7 @@ use App\Models\JobApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class JobApplicationController extends Controller
 {
@@ -207,6 +208,19 @@ class JobApplicationController extends Controller
         ->orderBy('created_at', 'desc')
         ->paginate(20);
 
-        return view('job-applications.received', compact('applications'));
+        // Get company's jobs for filtering
+        $jobs = Job::where('company_id', Auth::id())
+            ->select('id', 'title')
+            ->get();
+
+        return Inertia::render('Applications/Received', [
+            'applications' => $applications,
+            'jobs' => $jobs,
+            'filters' => [
+                'status' => request('status', ''),
+                'job_id' => request('job_id', ''),
+                'search' => request('search', ''),
+            ]
+        ]);
     }
 }

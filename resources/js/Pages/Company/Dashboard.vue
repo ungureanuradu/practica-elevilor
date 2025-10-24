@@ -88,14 +88,14 @@
                 Publică Job Nou
               </Link>
               <Link
-                :href="route('company.calendar-events.create')"
+                :href="route('calendar-events.create')"
                 class="inline-flex items-center w-full px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
               >
                 <i class="fas fa-calendar-plus mr-2"></i>
                 Creează Eveniment
               </Link>
               <Link
-                :href="route('company.applications.received')"
+                :href="route('applications.received')"
                 class="inline-flex items-center w-full px-4 py-2 bg-purple-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-purple-700 focus:bg-purple-700 active:bg-purple-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
               >
                 <i class="fas fa-users mr-2"></i>
@@ -135,7 +135,7 @@
             <h3 class="text-lg font-medium text-gray-900 mb-4">Gestionare Aplicații</h3>
             <div class="space-y-3">
               <Link
-                :href="route('company.applications.received')"
+                :href="route('applications.received')"
                 class="inline-flex items-center w-full px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
               >
                 <i class="fas fa-inbox mr-2"></i>

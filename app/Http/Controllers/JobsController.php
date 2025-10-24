@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use App\Models\JobApplication;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -11,6 +12,7 @@ use Inertia\Inertia;
 
 class JobsController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of jobs
      */
