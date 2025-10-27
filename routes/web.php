@@ -68,7 +68,7 @@ Route::get('/joburi/{job}', [JobsController::class, 'show'])->name('jobs.show');
 // Role-based routes for authenticated users
 Route::middleware(['auth', 'verified'])->group(function () {
     // Teacher routes
-    Route::prefix('teacher')->name('teacher.')->group(function () {
+    Route::prefix('teacher')->name('teacher.')->middleware('role:teacher')->group(function () {
         Route::get('/dashboard', [TeacherDashboardController::class, 'index'])->name('dashboard');
         Route::get('/members', [MembersController::class, 'index'])->name('members.index');
         Route::get('/members/{user}', [MembersController::class, 'show'])->name('members.show');
@@ -107,7 +107,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Student routes
-    Route::prefix('student')->name('student.')->group(function () {
+    Route::prefix('student')->name('student.')->middleware('role:student')->group(function () {
         Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
         Route::get('/members', [MembersController::class, 'index'])->name('members.index');
         Route::get('/members/{user}', [MembersController::class, 'show'])->name('members.show');
@@ -135,7 +135,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Company routes
-    Route::prefix('company')->name('company.')->group(function () {
+    Route::prefix('company')->name('company.')->middleware('role:company')->group(function () {
         Route::get('/dashboard', [CompanyDashboardController::class, 'index'])->name('dashboard');
         Route::get('/members', [MembersController::class, 'index'])->name('members.index');
         Route::get('/members/{user}', [MembersController::class, 'show'])->name('members.show');
